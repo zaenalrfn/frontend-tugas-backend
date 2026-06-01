@@ -21,6 +21,12 @@ const routes: Array<RouteRecordRaw> = [
     name: 'about',
     component: () => import('../views/AboutView.vue'),
   },
+  {
+    path: '/articles/:id',
+    name: 'article-detail',
+    component: () => import('../views/ArticleDetailView.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 const router = createRouter({

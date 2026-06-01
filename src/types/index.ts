@@ -1,5 +1,5 @@
 export interface User {
-  id: number
+  id: string
   name?: string
   email: string
 }
@@ -12,10 +12,10 @@ export interface AuthResponse {
 }
 
 export interface Article {
-  id: number
+  id: string
   title: string
   content: string
-  author_id: number
+  author_id: string
   created_at?: string
   updated_at?: string
 }

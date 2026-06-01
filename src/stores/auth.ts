@@ -33,7 +33,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
     } catch (e) {
       console.error('Gagal mendekode payload JWT:', e)
-      return { id: 0, email: '' }
+      return { id: '', email: '' }
     }
   }
 

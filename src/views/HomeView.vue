@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { articleService } from '../services/articles'
 import type { Article } from '../types'
-import { LogOut, PlusCircle, BookOpen, User as UserIcon, FileText } from 'lucide-vue-next'
+import { LogOut, PlusCircle, BookOpen, User as UserIcon, FileText, ArrowRight } from 'lucide-vue-next'
 import AlertMessage from '../components/AlertMessage.vue'
 import SkeletonLoader from '../components/SkeletonLoader.vue'
 
@@ -199,13 +199,19 @@ onMounted(() => {
 
           <!-- List State -->
           <div v-else class="space-y-4 max-h-[600px] overflow-y-auto pr-1">
-            <div
+            <router-link
               v-for="article in articles"
               :key="article.id"
-              class="group border border-slate-800 hover:border-slate-700 bg-slate-950/40 hover:bg-slate-950/70 p-5 rounded-xl transition-all duration-200"
+              :to="{ name: 'article-detail', params: { id: article.id } }"
+              class="group block border border-slate-800 hover:border-indigo-500/40 bg-slate-950/40 hover:bg-slate-950/80 p-5 rounded-xl transition-all duration-300 relative overflow-hidden"
             >
-              <div class="flex items-start justify-between gap-4">
-                <h4 class="font-bold text-slate-100 group-hover:text-white transition-colors">
+              <!-- Background Ambient Glow on hover -->
+              <div
+                class="absolute -inset-y-0 right-0 w-24 bg-gradient-to-l from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+              ></div>
+
+              <div class="flex items-start justify-between gap-4 relative z-10">
+                <h4 class="font-bold text-slate-100 group-hover:text-indigo-400 transition-colors">
                   {{ article.title }}
                 </h4>
                 <span
@@ -214,16 +220,28 @@ onMounted(() => {
                   ID: {{ article.id }}
                 </span>
               </div>
-              <p class="text-sm text-slate-400 mt-2 leading-relaxed whitespace-pre-line">
+              
+              <!-- Content preview with clamp limit -->
+              <p class="text-sm text-slate-400 mt-2 leading-relaxed line-clamp-3">
                 {{ article.content }}
               </p>
+              
               <div
-                class="flex items-center gap-2 mt-4 pt-3 border-t border-slate-900 text-xs text-slate-500"
+                class="flex items-center justify-between mt-4 pt-3 border-t border-slate-900/60 text-xs text-slate-500 relative z-10"
               >
-                <UserIcon class="w-3.5 h-3.5" />
-                <span>Author ID: {{ article.author_id }}</span>
+                <div class="flex items-center gap-2">
+                  <UserIcon class="w-3.5 h-3.5" />
+                  <span>Author ID: {{ article.author_id }}</span>
+                </div>
+                
+                <span
+                  class="flex items-center gap-1 text-indigo-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 font-semibold text-[11px]"
+                >
+                  Baca Selengkapnya
+                  <ArrowRight class="w-3 h-3" />
+                </span>
               </div>
-            </div>
+            </router-link>
           </div>
         </div>
       </section>

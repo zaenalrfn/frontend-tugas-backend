@@ -10,7 +10,7 @@ export const articleService = {
     return []
   },
 
-  async getById(id: number): Promise<Article> {
+  async getById(id: string): Promise<Article> {
     const response = await api.get<ArticleResponse>(`/api/articles/${id}`)
     return response.data.data as Article
   },
